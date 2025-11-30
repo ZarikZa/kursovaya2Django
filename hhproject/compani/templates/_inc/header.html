@@ -1,0 +1,134 @@
+{% load static %}
+<div class="user-type-header">
+    <div class="user-type-container">
+        <a href="{% url 'home_page' %}" class="user-type-link {% if request.path == '/login/aplicant/' %}active{% endif %}">
+            Соискатель
+        </a>
+        <a href="{% url 'home_comp' %}" class="user-type-link {% if request.path == '/login/employee/' %}active{% endif %}">
+            Компания
+        </a>
+    </div>
+</div>
+<header class="header">
+    <div class="header-container">
+        <a href="{% url 'home_comp' %}" class="header-logo">
+            <span>HR-Lab</span>
+        </a>
+        <nav class="header-nav">
+            <ul class="header-menu" id="header-menu">
+                <li><a href="{% url 'home_comp' %}" class="header-link">Главная</a></li>
+              
+                
+                {% if user.is_authenticated %}
+                    {% if user.user_type == "company" or user.user_type == "hragent"%}
+                        <li><a href="{% url 'vacancy_list' %}" class="header-link">Вакансии</a></li>
+                        <li><a href="{% url 'responses_list' %}" class="header-link">Отклики</a></li>
+                    {% endif %}
+                    {% if user.user_type == "hragent"%}
+                        <li><a href="{% url 'employee_profile' %}" class="header-link">Профиль</a></li>
+                    {% endif %}
+                    {% if user.user_type == "company" %}
+                         <li><a href="{% url 'hr_agents_list' %}" class="header-link">HR-агенты</a></li>
+                         <li><a href="{% url 'company_profile' %}" class="header-link">Профиль</a></li>
+                    {% endif %}
+                  
+                
+                    <li><a href="{% url 'logout' %}" class="header-button header-button--logout">Выйти</a></li>
+                   
+                {% else %}
+                    <li><a href="{% url 'login_user' %}" class="header-button header-button--login">Войти</a></li>
+                    <li><a href="{% url 'reg_comp' %}" class="header-button header-button--register">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <button class="header-toggle" id="header-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<style>
+    .user-type-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #1e3a8a;
+        height: 35px;
+        z-index: 1001;
+        border-bottom: 1px solid #374151;
+    }
+
+    .user-type-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1.5rem;
+    }
+
+    .user-type-link {
+        color: white;
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        background: transparent;
+    }
+
+    .user-type-link:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fbbf24;
+    }
+
+    .user-type-link.active {
+        background: #3b82f6;
+        color: white;
+        font-weight: 600;
+    }
+
+    .header {
+        position: fixed;
+        top: 35px;
+        width: 100%;
+        background: linear-gradient(90deg, rgba(37, 99, 235, 0.9), rgba(30, 64, 175, 0.9));
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    body {
+        padding-top: 115px;
+    }
+
+    @media (max-width: 768px) {
+        .user-type-container {
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .user-type-link {
+            font-size: 12px;
+            padding: 3px 10px;
+        }
+        
+        .header {
+            top: 35px;
+        }
+        
+        body {
+            padding-top: 115px;
+        }
+        
+        .header-nav {
+            top: 115px;
+        }
+    }
+</style>

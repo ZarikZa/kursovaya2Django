@@ -1,0 +1,994 @@
+{% extends "base.html" %}
+{% block header %}
+    {% include '_inc/header.html' %}
+{% endblock %}
+{% block content %}
+<style>
+    :root {
+    --primary: #2563eb;
+    --accent: #f59e0b;
+    --dark: #1f2937;
+    --light: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] {
+    --primary: #3b82f6;
+    --accent: #f59e0b;
+    --dark: #f8fafc;
+    --light: #0f172a;
+    --glass-bg: rgba(30, 41, 59, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.response-list-container {
+    max-width: 1400px;
+    margin: 120px auto 60px;
+    padding: 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.response-list-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Стили для поиска */
+.search-section {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.search-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 300px;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-button {
+    padding: 12px 24px;
+    border: 2px solid var(--primary);
+    border-radius: 25px;
+    background: var(--primary);
+    color: var(--light);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.clear-search {
+    padding: 12px 20px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 25px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.clear-search:hover {
+    background: var(--text-secondary);
+    color: var(--light);
+    transform: translateY(-2px);
+}
+
+.filter-section {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+}
+
+.filter-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    border: 2px solid var(--primary);
+    border-radius: 25px;
+    background: transparent;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.filter-button:hover {
+    background: rgba(37, 99, 235, 0.1);
+    transform: translateY(-2px);
+}
+
+.filter-button.active {
+    background: var(--primary);
+    color: var(--light);
+}
+
+.filter-button.active:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.clear-filters {
+    margin-left: auto;
+    padding: 10px 20px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 25px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.clear-filters:hover {
+    background: var(--text-secondary);
+    color: var(--light);
+    transform: translateY(-2px);
+}
+
+.active-filters-info {
+    background: rgba(37, 99, 235, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--primary);
+}
+
+.active-filters-info h4 {
+    color: var(--primary);
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+}
+
+.active-filter-tag {
+    display: inline-flex;
+    align-items: center;
+    background: var(--primary);
+    color: var(--light);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    margin: 5px 8px 5px 0;
+}
+
+.remove-filter {
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.response-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.response-table th {
+    background: var(--primary);
+    color: var(--light);
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.response-table td {
+    background: var(--bg-card);
+    padding: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.response-table tr:hover td {
+    background: var(--bg-secondary);
+}
+
+.clickable-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    text-align: left;
+    font-family: inherit;
+}
+
+.clickable-item:hover {
+    background: rgba(37, 99, 235, 0.1);
+    transform: translateY(-2px);
+}
+
+.vacancy-position {
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.applicant-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.action-button {
+    padding: 8px 16px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.view-resume-button {
+    background: var(--accent);
+    color: var(--light);
+}
+
+.view-resume-button:hover {
+    background: var(--accent-dark);
+}
+
+.edit-vacancy-button {
+    background: #8b5cf6;
+    color: var(--light);
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+.edit-vacancy-button:hover {
+    background: #7c3aed;
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    display: inline-block;
+}
+
+.status-new {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+.status-viewed {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+
+.status-invited {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+.status-rejected {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--bg-primary);
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    color: var(--light);
+    border-radius: 16px 16px 0 0;
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-button:hover {
+    color: #ff6b6b;
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+    background: var(--bg-primary);
+}
+
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: var(--bg-primary);
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary {
+    background: var(--text-secondary);
+    color: var(--light);
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--light);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.info-section {
+    margin-bottom: 20px;
+}
+
+.info-section h6 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.info-content {
+    white-space: pre-line;
+    line-height: 1.6;
+    background: var(--bg-secondary);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+}
+
+.response-status-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.applicant-email {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.vacancy-details {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.no-responses {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.no-responses-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .response-list-container {
+        margin: 100px 20px 40px;
+        padding: 20px;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+
+    .filter-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .clear-filters {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-input {
+        min-width: 100%;
+    }
+
+    .search-button, .clear-search {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
+
+<div class="response-list-container">
+    <h2 class="response-list-title">Отклики на вакансии компании {{ company.name }}</h2>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p class="{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="search-section">
+        <div class="search-title">Поиск по откликам</div>
+        <form method="get" class="search-form">
+            <input type="text" 
+                   name="search" 
+                   class="search-input" 
+                   placeholder="Поиск по имени соискателя, вакансии или email..." 
+                   value="{{ request.GET.search }}">
+            <button type="submit" class="search-button">
+                Найти
+            </button>
+            {% if request.GET.search %}
+            <a href="?{% if request.GET.status %}status={{ request.GET.status }}{% endif %}" class="clear-search">
+                Очистить поиск
+            </a>
+            {% endif %}
+        </form>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-title">Фильтр по статусам</div>
+        <div class="filter-buttons">
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}status=all" 
+               class="filter-button {% if current_status == 'all' %}active{% endif %}">
+                Все отклики ({{ counts.total }})
+            </a>
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}status=new" 
+               class="filter-button {% if current_status == 'new' %}active{% endif %}">
+                Новые ({{ counts.new }})
+            </a>
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}status=viewed" 
+               class="filter-button {% if current_status == 'viewed' %}active{% endif %}">
+                Просмотренные ({{ counts.viewed }})
+            </a>
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}status=invited" 
+               class="filter-button {% if current_status == 'invited' %}active{% endif %}">
+                Приглашенные ({{ counts.invited }})
+            </a>
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}status=rejected" 
+               class="filter-button {% if current_status == 'rejected' %}active{% endif %}">
+                Отклоненные ({{ counts.rejected }})
+            </a>
+            {% if current_status != 'all' or request.GET.search %}
+            <a href="?{% if request.GET.search %}search={{ request.GET.search }}{% endif %}" class="clear-filters">
+                Сбросить фильтры
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if response_data %}
+        <table class="response-table">
+            <thead>
+                <tr>
+                    <th>Вакансия</th>
+                    <th>Соискатель</th>
+                    <th>Резюме</th>
+                    <th>Дата отклика</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in response_data %}
+                    <tr>
+                        <td>
+                            <div class="vacancy-info">
+                                <button class="clickable-item vacancy-position" 
+                                        onclick="openModal('vacancyModal{{ data.response.vacancy.id }}')">
+                                    {{ data.response.vacancy.position }}
+                                </button>
+                                <div class="vacancy-details">
+                                    {{ data.response.vacancy.city }} | 
+                                    {{ data.response.vacancy.salary_min }} - {{ data.response.vacancy.salary_max }} ₽
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="applicant-info">
+                                <button class="clickable-item applicant-name" 
+                                        onclick="openModal('profileModal{{ data.response.applicants.id }}')">
+                                    {{ data.response.applicants.first_name }} {{ data.response.applicants.last_name }}
+                                </button>
+                                <div class="applicant-email">
+                                    {{ data.response.applicants.user.email }}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {% if data.response.applicants.resume %}
+                                <button class="action-button view-resume-button" 
+                                        onclick="openModal('resumeModal{{ data.response.id }}')">
+                                    Просмотреть резюме
+                                </button>
+                            {% else %}
+                                <span style="color: #6b7280;">Нет резюме</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ data.response.response_date|date:"d.m.Y H:i" }}</td>
+                        <td>
+                            <form method="post" action="{% url 'responses_list' %}" class="status-update-form" data-response-id="{{ data.response.id }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="response_id" value="{{ data.response.id }}">
+                                {{ data.form.status }}
+                                <span class="status-update-indicator" id="indicator-{{ data.response.id }}" style="display: none;">🔄</span>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="no-responses">
+            <div class="no-responses-icon">😔</div>
+            <p>
+                {% if current_status != 'all' or request.GET.search %}
+                    {% if request.GET.search %}
+                        По запросу "{{ request.GET.search }}" 
+                    {% endif %}
+                    {% if current_status != 'all' %}
+                        со статусом "
+                        {% if current_status == 'new' %}Новые
+                        {% elif current_status == 'viewed' %}Просмотренные
+                        {% elif current_status == 'invited' %}Приглашенные
+                        {% elif current_status == 'rejected' %}Отклоненные
+                        {% endif %}"
+                    {% endif %}
+                    откликов не найдено
+                {% else %}
+                    Нет откликов на ваши вакансии
+                {% endif %}
+            </p>
+            {% if current_status != 'all' or request.GET.search %}
+            <a href="?" class="filter-button" style="margin-top: 15px;">
+                Показать все отклики
+            </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+<!-- Модальные окна -->
+{% if response_data %}
+    <!-- Модальные окна для профилей соискателей -->
+    {% for data in response_data %}
+        <div id="profileModal{{ data.response.applicants.id }}" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">👤 Профиль соискателя: {{ data.response.applicants.first_name }} {{ data.response.applicants.last_name }}</h3>
+                    <button class="close-button" onclick="closeModal('profileModal{{ data.response.applicants.id }}')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="info-section">
+                        <h6>Контактная информация:</h6>
+                        <p><strong>Email:</strong> {{ data.response.applicants.user.email }}</p>
+                        <p><strong>Телефон:</strong> {{ data.response.applicants.user.phone }}</p>
+                        {% if data.response.applicants.birth_date %}
+                        <p><strong>Дата рождения:</strong> {{ data.response.applicants.birth_date|date:"d.m.Y" }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    {% if data.response.applicants.resume %}
+                    <div class="info-section">
+                        <h6>Резюме:</h6>
+                        <div class="info-content">
+                            {{ data.response.applicants.resume }}
+                        </div>
+                    </div>
+                    {% else %}
+                    <p style="color: #6b7280; text-align: center;">Резюме не указано</p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeModal('profileModal{{ data.response.applicants.id }}')">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Модальные окна для вакансий -->
+    {% for data in response_data %}
+        <div id="vacancyModal{{ data.response.vacancy.id }}" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">📋 Вакансия: {{ data.response.vacancy.position }}</h3>
+                    <button class="close-button" onclick="closeModal('vacancyModal{{ data.response.vacancy.id }}')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="info-section">
+                        <h6>Основная информация:</h6>
+                        <p><strong>Должность:</strong> {{ data.response.vacancy.position }}</p>
+                        <p><strong>Город:</strong> {{ data.response.vacancy.city }}</p>
+                        <p><strong>Зарплата:</strong> {{ data.response.vacancy.salary_min }} - {{ data.response.vacancy.salary_max }} ₽</p>
+                        {% if data.response.vacancy.experience %}
+                        <p><strong>Опыт работы:</strong> {{ data.response.vacancy.experience }}</p>
+                        {% endif %}
+                        {% if data.response.vacancy.employment_type %}
+                        <p><strong>Тип занятости:</strong> {{ data.response.vacancy.employment_type }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    {% if data.response.vacancy.description %}
+                    <div class="info-section">
+                        <h6>Описание вакансии:</h6>
+                        <div class="info-content" style="border-left-color: var(--primary);">
+                            {{ data.response.vacancy.description }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if data.response.vacancy.requirements %}
+                    <div class="info-section">
+                        <h6>Требования:</h6>
+                        <div class="info-content" style="border-left-color: #10b981;">
+                            {{ data.response.vacancy.requirements }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if data.response.vacancy.conditions %}
+                    <div class="info-section">
+                        <h6>Условия:</h6>
+                        <div class="info-content" style="border-left-color: #f59e0b;">
+                            {{ data.response.vacancy.conditions }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeModal('vacancyModal{{ data.response.vacancy.id }}')">Закрыть</button>
+                    {% if user.user_type == 'company' and data.response.vacancy.company == user.company or user.user_type == 'hragent' and data.response.vacancy.company == user.employee.company %}
+                    <a href="{% url 'edit_vacancy' data.response.vacancy.id %}" class="btn btn-primary">✏️ Редактировать вакансию</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Модальные окна для резюме -->
+    {% for data in response_data %}
+        {% if data.response.applicants.resume %}
+            <div id="resumeModal{{ data.response.id }}" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">📄 Резюме: {{ data.response.applicants.first_name }} {{ data.response.applicants.last_name }}</h3>
+                        <button class="close-button" onclick="closeModal('resumeModal{{ data.response.id }}')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="info-content">
+                            {{ data.response.applicants.resume }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeModal('resumeModal{{ data.response.id }}')">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<script>
+// Функции для работы с модальными окнами
+function openModal(modalId) {
+    console.log('Opening modal:', modalId);
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    } else {
+        console.error('Modal not found:', modalId);
+    }
+}
+
+function closeModal(modalId) {
+    console.log('Closing modal:', modalId);
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Функции для управления фильтрами
+function removeSearch() {
+    const url = new URL(window.location);
+    url.searchParams.delete('search');
+    window.location.href = url.toString();
+}
+
+function removeStatusFilter() {
+    const url = new URL(window.location);
+    url.searchParams.delete('status');
+    window.location.href = url.toString();
+}
+
+// Закрытие модального окна при клике вне его
+window.addEventListener('click', function(event) {
+    if (event.target.classList.contains('modal')) {
+        closeModal(event.target.id);
+    }
+});
+
+// Закрытие модального окна по клавише Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if (modal.style.display === 'block') {
+                closeModal(modal.id);
+            }
+        });
+    }
+});
+
+// Обработчики для обновления статуса
+document.addEventListener('DOMContentLoaded', function() {
+    const statusForms = document.querySelectorAll('.status-update-form');
+    
+    statusForms.forEach(form => {
+        const select = form.querySelector('select');
+        const indicator = document.getElementById(`indicator-${form.dataset.responseId}`);
+        
+        if (select && indicator) {
+            select.addEventListener('change', function() {
+                indicator.style.display = 'inline-block';
+                select.classList.add('status-updating');
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    setTimeout(() => {
+                        indicator.style.display = 'none';
+                        select.classList.remove('status-updating');
+                    }, 1000);
+                    showTemporaryMessage(data.message || 'Статус успешно обновлен', 'success');
+                    
+                    // Обновляем счетчики в фильтрах, если они доступны
+                    updateFilterCounts(data.counts);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    indicator.style.display = 'none';
+                    select.classList.remove('status-updating');
+                    showTemporaryMessage('Ошибка при обновлении статуса', 'error');
+                });
+            });
+        }
+    });
+    
+    function showTemporaryMessage(message, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 10000;
+            ${type === 'success' ? 'background: #16a34a;' : 'background: #dc2626;'}
+        `;
+        
+        document.body.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.parentNode.removeChild(messageDiv);
+            }
+        }, 3000);
+    }
+    
+    function updateFilterCounts(counts) {
+        if (!counts) return;
+        
+        // Обновляем счетчики в кнопках фильтров
+        const totalBtn = document.querySelector('a[href*="status=all"]');
+        const newBtn = document.querySelector('a[href*="status=new"]');
+        const viewedBtn = document.querySelector('a[href*="status=viewed"]');
+        const invitedBtn = document.querySelector('a[href*="status=invited"]');
+        const rejectedBtn = document.querySelector('a[href*="status=rejected"]');
+        
+        if (totalBtn) totalBtn.textContent = `Все отклики (${counts.total || 0})`;
+        if (newBtn) newBtn.textContent = `Новые (${counts.new || 0})`;
+        if (viewedBtn) viewedBtn.textContent = `Просмотренные (${counts.viewed || 0})`;
+        if (invitedBtn) invitedBtn.textContent = `Приглашенные (${counts.invited || 0})`;
+        if (rejectedBtn) rejectedBtn.textContent = `Отклоненные (${counts.rejected || 0})`;
+    }
+});
+
+// Автоматическое обновление статуса при изменении select
+document.addEventListener('change', function(e) {
+    if (e.target.matches('.response-status-select')) {
+        const form = e.target.closest('form');
+        if (form) {
+            form.dispatchEvent(new Event('submit', { bubbles: true }));
+        }
+    }
+});
+</script>
+{% endblock %}

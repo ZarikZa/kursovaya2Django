@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Регистрация компании - CareerHub{% endblock %}
+
+{% block content %}
+<div class="register-section">
+    <div class="register-container-wrapper">
+        <div class="register-container">
+            <h2>Создать аккаунт компании</h2>
+            
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" action="{% url 'reg_comp' %}" enctype="multipart/form-data" id="registrationForm">
+                {% csrf_token %}
+                
+                <div class="form-group" style="--index: 1;">
+                    <label for="{{ form.company_name.id_for_label }}">Название компании *</label>
+                    {{ form.company_name }}
+                    {% if form.company_name.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.company_name.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group" style="--index: 2;">
+                    <label for="{{ form.company_number.id_for_label }}">ИНН *</label>
+                    {{ form.company_number }}
+                    {% if form.company_number.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.company_number.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group" style="--index: 3;">
+                    <label for="{{ form.industry.id_for_label }}">Сфера деятельности</label>
+                    {{ form.industry }}
+                    {% if form.industry.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.industry.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group" style="--index: 4;">
+                    <label for="{{ form.email.id_for_label }}">Email *</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.email.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group" style="--index: 5;">
+                    <label for="{{ form.phone.id_for_label }}">Телефон *</label>
+                    {{ form.phone }}
+                    {% if form.phone.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.phone.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group" style="--index: 6;">
+                    <label for="{{ form.description.id_for_label }}">Описание компании</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.description.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group" style="--index: 7;">
+                    <label for="{{ form.verification_document.id_for_label }}">Подтверждающий документ *</label>
+                    <div class="file-input-wrapper">
+                        <div class="file-custom" onclick="document.getElementById('file-input').click()">
+                            <span class="file-name" id="file-name">Выберите PDF файл</span>
+                            <span class="file-button">Выбрать файл</span>
+                        </div>
+                        {{ form.verification_document }}
+                    </div>
+                    {% if form.verification_document.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.verification_document.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <small class="help-text">{{ form.verification_document.help_text }}</small>
+                </div>
+
+                <div class="form-group" style="--index: 8;">
+                    <label for="{{ form.password1.id_for_label }}">Пароль *</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.password1.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group" style="--index: 9;">
+                    <label for="{{ form.password2.id_for_label }}">Подтверждение пароля *</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <ul class="errorlist">
+                            {% for error in form.password2.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <!-- Согласие на обработку персональных данных -->
+                <div class="form-group agreement-group" style="--index: 10;">
+                    <label class="agreement-label">
+                        <input type="checkbox" name="personal_data_agreement" id="id_personal_data_agreement" required>
+                        <span class="checkmark"></span>
+                        Я соглашаюсь на обработку персональных данных компании в соответствии с 
+                        <a href="/media/docki/politika.pdf" target="_blank" class="agreement-link">Политикой конфиденциальности</a>
+                        и 
+                        <a href="/media/docki/usloviya.pdf" target="_blank" class="agreement-link">Условиями использования</a>
+                    </label>
+                    <div class="agreement-error" id="agreementError" style="display: none;">
+                        Необходимо согласие на обработку персональных данных
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitButton" style="--index: 11;">
+                    Зарегистрироваться
+                </button>
+            </form>
+
+            <div class="login-link-container">
+                <a href="{% url 'login_user' %}" class="login-link">Уже есть аккаунт? Войти</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.querySelector('input[type="file"]');
+    const fileName = document.getElementById('file-name');
+    const agreementCheckbox = document.getElementById('id_personal_data_agreement');
+    const submitButton = document.getElementById('submitButton');
+    const agreementError = document.getElementById('agreementError');
+    const form = document.getElementById('registrationForm');
+
+    // Обработка выбора файла
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                fileName.textContent = this.files[0].name;
+            } else {
+                fileName.textContent = 'Выберите PDF файл';
+            }
+        });
+        
+        fileInput.id = 'file-input';
+    }
+
+    // Упрощенная проверка формы при отправке
+    form.addEventListener('submit', function(event) {
+        let formIsValid = true;
+
+        // Проверяем согласие
+        if (!agreementCheckbox.checked) {
+            event.preventDefault();
+            agreementError.style.display = 'block';
+            agreementCheckbox.parentElement.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => {
+                agreementCheckbox.parentElement.style.animation = '';
+            }, 500);
+            formIsValid = false;
+            
+            // Прокручиваем к ошибке
+            agreementError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            agreementError.style.display = 'none';
+        }
+
+        return formIsValid;
+    });
+
+    // Простая проверка для визуальной обратной связи
+    agreementCheckbox.addEventListener('change', function() {
+        if (agreementCheckbox.checked) {
+            agreementError.style.display = 'none';
+            submitButton.classList.remove('btn-disabled');
+            submitButton.classList.add('btn-primary');
+        } else {
+            submitButton.classList.remove('btn-primary');
+            submitButton.classList.add('btn-disabled');
+        }
+    });
+
+    // Инициализация стилей
+    if (!agreementCheckbox.checked) {
+        submitButton.classList.add('btn-disabled');
+    }
+});
+
+// Добавляем CSS анимацию для тряски
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    
+    .agreement-group {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+    }
+    
+    .agreement-label {
+        display: flex;
+        align-items: flex-start;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1.4;
+        margin: 0;
+    }
+    
+    .agreement-label input[type="checkbox"] {
+        margin-right: 10px;
+        margin-top: 3px;
+        transform: scale(1.2);
+    }
+    
+    .agreement-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    .agreement-link:hover {
+        text-decoration: underline;
+    }
+    
+    .agreement-error {
+        color: #dc3545;
+        font-size: 0.875em;
+        margin-top: 8px;
+        padding: 5px 10px;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        display: none;
+    }
+    
+    .btn-disabled {
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+        cursor: not-allowed !important;
+        opacity: 0.65 !important;
+    }
+    
+    .btn-disabled:hover {
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    .file-input-wrapper {
+        margin-top: 8px;
+    }
+`;
+document.head.appendChild(style);
+</script>
+{% endblock %}

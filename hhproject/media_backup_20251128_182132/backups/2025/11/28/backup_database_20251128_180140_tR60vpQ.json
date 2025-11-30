@@ -1,0 +1,1448 @@
+{
+  "metadata": {
+    "created_at": "2025-11-28T18:01:40.461869",
+    "backup_type": "database",
+    "django_version": "5.2.2",
+    "models_backed_up": [
+      "auth.Group",
+      "auth.Permission",
+      "home.Role",
+      "home.Company",
+      "home.Applicant",
+      "home.Employee",
+      "home.WorkConditions",
+      "home.StatusVacancies",
+      "home.StatusResponse",
+      "home.Vacancy",
+      "home.Complaint",
+      "home.Response",
+      "home.Favorites",
+      "home.AdminLog",
+      "home.Backup"
+    ]
+  },
+  "data": {
+    "auth.Group": [],
+    "auth.Permission": [
+      {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+          "name": "Can add log entry",
+          "content_type": 1,
+          "codename": "add_logentry"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+          "name": "Can change log entry",
+          "content_type": 1,
+          "codename": "change_logentry"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+          "name": "Can delete log entry",
+          "content_type": 1,
+          "codename": "delete_logentry"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 4,
+        "fields": {
+          "name": "Can view log entry",
+          "content_type": 1,
+          "codename": "view_logentry"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 9,
+        "fields": {
+          "name": "Can add group",
+          "content_type": 3,
+          "codename": "add_group"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 10,
+        "fields": {
+          "name": "Can change group",
+          "content_type": 3,
+          "codename": "change_group"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 11,
+        "fields": {
+          "name": "Can delete group",
+          "content_type": 3,
+          "codename": "delete_group"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 12,
+        "fields": {
+          "name": "Can view group",
+          "content_type": 3,
+          "codename": "view_group"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 5,
+        "fields": {
+          "name": "Can add permission",
+          "content_type": 2,
+          "codename": "add_permission"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 6,
+        "fields": {
+          "name": "Can change permission",
+          "content_type": 2,
+          "codename": "change_permission"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 7,
+        "fields": {
+          "name": "Can delete permission",
+          "content_type": 2,
+          "codename": "delete_permission"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 8,
+        "fields": {
+          "name": "Can view permission",
+          "content_type": 2,
+          "codename": "view_permission"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 13,
+        "fields": {
+          "name": "Can add content type",
+          "content_type": 4,
+          "codename": "add_contenttype"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 14,
+        "fields": {
+          "name": "Can change content type",
+          "content_type": 4,
+          "codename": "change_contenttype"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 15,
+        "fields": {
+          "name": "Can delete content type",
+          "content_type": 4,
+          "codename": "delete_contenttype"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 16,
+        "fields": {
+          "name": "Can view content type",
+          "content_type": 4,
+          "codename": "view_contenttype"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 65,
+        "fields": {
+          "name": "Can add Лог администратора",
+          "content_type": 17,
+          "codename": "add_adminlog"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 66,
+        "fields": {
+          "name": "Can change Лог администратора",
+          "content_type": 17,
+          "codename": "change_adminlog"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 67,
+        "fields": {
+          "name": "Can delete Лог администратора",
+          "content_type": 17,
+          "codename": "delete_adminlog"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 68,
+        "fields": {
+          "name": "Can view Лог администратора",
+          "content_type": 17,
+          "codename": "view_adminlog"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 41,
+        "fields": {
+          "name": "Can add Соискатель",
+          "content_type": 11,
+          "codename": "add_applicant"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 42,
+        "fields": {
+          "name": "Can change Соискатель",
+          "content_type": 11,
+          "codename": "change_applicant"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 43,
+        "fields": {
+          "name": "Can delete Соискатель",
+          "content_type": 11,
+          "codename": "delete_applicant"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 44,
+        "fields": {
+          "name": "Can view Соискатель",
+          "content_type": 11,
+          "codename": "view_applicant"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 69,
+        "fields": {
+          "name": "Can add Бэкап",
+          "content_type": 18,
+          "codename": "add_backup"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 70,
+        "fields": {
+          "name": "Can change Бэкап",
+          "content_type": 18,
+          "codename": "change_backup"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 71,
+        "fields": {
+          "name": "Can delete Бэкап",
+          "content_type": 18,
+          "codename": "delete_backup"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 72,
+        "fields": {
+          "name": "Can view Бэкап",
+          "content_type": 18,
+          "codename": "view_backup"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 45,
+        "fields": {
+          "name": "Can add Компания",
+          "content_type": 12,
+          "codename": "add_company"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 46,
+        "fields": {
+          "name": "Can change Компания",
+          "content_type": 12,
+          "codename": "change_company"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 47,
+        "fields": {
+          "name": "Can delete Компания",
+          "content_type": 12,
+          "codename": "delete_company"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 48,
+        "fields": {
+          "name": "Can view Компания",
+          "content_type": 12,
+          "codename": "view_company"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 73,
+        "fields": {
+          "name": "Can add Жалоба",
+          "content_type": 19,
+          "codename": "add_complaint"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 74,
+        "fields": {
+          "name": "Can change Жалоба",
+          "content_type": 19,
+          "codename": "change_complaint"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 75,
+        "fields": {
+          "name": "Can delete Жалоба",
+          "content_type": 19,
+          "codename": "delete_complaint"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 76,
+        "fields": {
+          "name": "Can view Жалоба",
+          "content_type": 19,
+          "codename": "view_complaint"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 49,
+        "fields": {
+          "name": "Can add Сотрудник",
+          "content_type": 13,
+          "codename": "add_employee"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 50,
+        "fields": {
+          "name": "Can change Сотрудник",
+          "content_type": 13,
+          "codename": "change_employee"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 51,
+        "fields": {
+          "name": "Can delete Сотрудник",
+          "content_type": 13,
+          "codename": "delete_employee"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 52,
+        "fields": {
+          "name": "Can view Сотрудник",
+          "content_type": 13,
+          "codename": "view_employee"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 61,
+        "fields": {
+          "name": "Can add Избранное",
+          "content_type": 16,
+          "codename": "add_favorites"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 62,
+        "fields": {
+          "name": "Can change Избранное",
+          "content_type": 16,
+          "codename": "change_favorites"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 63,
+        "fields": {
+          "name": "Can delete Избранное",
+          "content_type": 16,
+          "codename": "delete_favorites"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 64,
+        "fields": {
+          "name": "Can view Избранное",
+          "content_type": 16,
+          "codename": "view_favorites"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 57,
+        "fields": {
+          "name": "Can add Отклик",
+          "content_type": 15,
+          "codename": "add_response"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 58,
+        "fields": {
+          "name": "Can change Отклик",
+          "content_type": 15,
+          "codename": "change_response"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 59,
+        "fields": {
+          "name": "Can delete Отклик",
+          "content_type": 15,
+          "codename": "delete_response"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 60,
+        "fields": {
+          "name": "Can view Отклик",
+          "content_type": 15,
+          "codename": "view_response"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 21,
+        "fields": {
+          "name": "Can add Роль",
+          "content_type": 6,
+          "codename": "add_role"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 22,
+        "fields": {
+          "name": "Can change Роль",
+          "content_type": 6,
+          "codename": "change_role"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 23,
+        "fields": {
+          "name": "Can delete Роль",
+          "content_type": 6,
+          "codename": "delete_role"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 24,
+        "fields": {
+          "name": "Can view Роль",
+          "content_type": 6,
+          "codename": "view_role"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 25,
+        "fields": {
+          "name": "Can add Статус отклика",
+          "content_type": 7,
+          "codename": "add_statusresponse"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 26,
+        "fields": {
+          "name": "Can change Статус отклика",
+          "content_type": 7,
+          "codename": "change_statusresponse"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 27,
+        "fields": {
+          "name": "Can delete Статус отклика",
+          "content_type": 7,
+          "codename": "delete_statusresponse"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 28,
+        "fields": {
+          "name": "Can view Статус отклика",
+          "content_type": 7,
+          "codename": "view_statusresponse"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 29,
+        "fields": {
+          "name": "Can add Статус вакансии",
+          "content_type": 8,
+          "codename": "add_statusvacancies"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 30,
+        "fields": {
+          "name": "Can change Статус вакансии",
+          "content_type": 8,
+          "codename": "change_statusvacancies"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 31,
+        "fields": {
+          "name": "Can delete Статус вакансии",
+          "content_type": 8,
+          "codename": "delete_statusvacancies"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 32,
+        "fields": {
+          "name": "Can view Статус вакансии",
+          "content_type": 8,
+          "codename": "view_statusvacancies"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 37,
+        "fields": {
+          "name": "Can add Пользователь",
+          "content_type": 10,
+          "codename": "add_user"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 38,
+        "fields": {
+          "name": "Can change Пользователь",
+          "content_type": 10,
+          "codename": "change_user"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 39,
+        "fields": {
+          "name": "Can delete Пользователь",
+          "content_type": 10,
+          "codename": "delete_user"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 40,
+        "fields": {
+          "name": "Can view Пользователь",
+          "content_type": 10,
+          "codename": "view_user"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 53,
+        "fields": {
+          "name": "Can add Вакансия",
+          "content_type": 14,
+          "codename": "add_vacancy"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 54,
+        "fields": {
+          "name": "Can change Вакансия",
+          "content_type": 14,
+          "codename": "change_vacancy"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 55,
+        "fields": {
+          "name": "Can delete Вакансия",
+          "content_type": 14,
+          "codename": "delete_vacancy"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 56,
+        "fields": {
+          "name": "Can view Вакансия",
+          "content_type": 14,
+          "codename": "view_vacancy"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 33,
+        "fields": {
+          "name": "Can add Условие работы",
+          "content_type": 9,
+          "codename": "add_workconditions"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 34,
+        "fields": {
+          "name": "Can change Условие работы",
+          "content_type": 9,
+          "codename": "change_workconditions"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 35,
+        "fields": {
+          "name": "Can delete Условие работы",
+          "content_type": 9,
+          "codename": "delete_workconditions"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 36,
+        "fields": {
+          "name": "Can view Условие работы",
+          "content_type": 9,
+          "codename": "view_workconditions"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 17,
+        "fields": {
+          "name": "Can add session",
+          "content_type": 5,
+          "codename": "add_session"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 18,
+        "fields": {
+          "name": "Can change session",
+          "content_type": 5,
+          "codename": "change_session"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 19,
+        "fields": {
+          "name": "Can delete session",
+          "content_type": 5,
+          "codename": "delete_session"
+        }
+      },
+      {
+        "model": "auth.permission",
+        "pk": 20,
+        "fields": {
+          "name": "Can view session",
+          "content_type": 5,
+          "codename": "view_session"
+        }
+      }
+    ],
+    "home.Role": [
+      {
+        "model": "home.role",
+        "pk": 21,
+        "fields": {
+          "role_name": "Администратор"
+        }
+      },
+      {
+        "model": "home.role",
+        "pk": 22,
+        "fields": {
+          "role_name": "HR менеджер"
+        }
+      },
+      {
+        "model": "home.role",
+        "pk": 23,
+        "fields": {
+          "role_name": "Соискатель"
+        }
+      },
+      {
+        "model": "home.role",
+        "pk": 24,
+        "fields": {
+          "role_name": "Аналитик"
+        }
+      }
+    ],
+    "home.Company": [
+      {
+        "model": "home.company",
+        "pk": 1,
+        "fields": {
+          "user": 3,
+          "name": "Чистюля",
+          "number": "1221111111",
+          "industry": "Клининг",
+          "description": "Клининговая компания",
+          "theme": "light",
+          "status": "approved",
+          "verification_document": "company_documents/2025/11/25/Еще_один_важный_файл.pdf",
+          "created_at": "2025-11-25T11:01:30.519Z"
+        }
+      }
+    ],
+    "home.Applicant": [
+      {
+        "model": "home.applicant",
+        "pk": 1,
+        "fields": {
+          "user": 2,
+          "first_name": "Шеметов",
+          "last_name": "Иван",
+          "birth_date": "2000-12-12",
+          "resume": "Танцую в процессе уборки",
+          "theme": "dark"
+        }
+      }
+    ],
+    "home.Employee": [
+      {
+        "model": "home.employee",
+        "pk": 5,
+        "fields": {
+          "user": 8,
+          "first_name": "Василий",
+          "last_name": "Васильев",
+          "company": 1,
+          "access_level": "hr",
+          "theme": null
+        }
+      },
+      {
+        "model": "home.employee",
+        "pk": 6,
+        "fields": {
+          "user": 9,
+          "first_name": "Ксения",
+          "last_name": "Школьникова",
+          "company": null,
+          "access_level": "admin",
+          "theme": null
+        }
+      },
+      {
+        "model": "home.employee",
+        "pk": 7,
+        "fields": {
+          "user": 10,
+          "first_name": "Иван",
+          "last_name": "Иванов",
+          "company": 1,
+          "access_level": "hr",
+          "theme": null
+        }
+      }
+    ],
+    "home.WorkConditions": [
+      {
+        "model": "home.workconditions",
+        "pk": 17,
+        "fields": {
+          "work_conditions_name": "Офис"
+        }
+      },
+      {
+        "model": "home.workconditions",
+        "pk": 18,
+        "fields": {
+          "work_conditions_name": "Удаленно"
+        }
+      },
+      {
+        "model": "home.workconditions",
+        "pk": 19,
+        "fields": {
+          "work_conditions_name": "Гибрид"
+        }
+      },
+      {
+        "model": "home.workconditions",
+        "pk": 20,
+        "fields": {
+          "work_conditions_name": "Вахта"
+        }
+      }
+    ],
+    "home.StatusVacancies": [
+      {
+        "model": "home.statusvacancies",
+        "pk": 21,
+        "fields": {
+          "status_vacancies_name": "Архивирована"
+        }
+      },
+      {
+        "model": "home.statusvacancies",
+        "pk": 22,
+        "fields": {
+          "status_vacancies_name": "Активна"
+        }
+      }
+    ],
+    "home.StatusResponse": [
+      {
+        "model": "home.statusresponse",
+        "pk": 21,
+        "fields": {
+          "status_response_name": "Отправлен"
+        }
+      },
+      {
+        "model": "home.statusresponse",
+        "pk": 22,
+        "fields": {
+          "status_response_name": "Просмотрен"
+        }
+      },
+      {
+        "model": "home.statusresponse",
+        "pk": 23,
+        "fields": {
+          "status_response_name": "Приглашение"
+        }
+      },
+      {
+        "model": "home.statusresponse",
+        "pk": 24,
+        "fields": {
+          "status_response_name": "Отказ"
+        }
+      },
+      {
+        "model": "home.statusresponse",
+        "pk": 25,
+        "fields": {
+          "status_response_name": "В процессе"
+        }
+      },
+      {
+        "model": "home.statusresponse",
+        "pk": 26,
+        "fields": {
+          "status_response_name": "Новый"
+        }
+      }
+    ],
+    "home.Vacancy": [
+      {
+        "model": "home.vacancy",
+        "pk": 4,
+        "fields": {
+          "company": 1,
+          "work_conditions": 18,
+          "position": "Программист python",
+          "description": "Работа в крупной IT компании, с перспективой на карьерный рост",
+          "requirements": "Знание Framework Django и иметь пару проектов написанных на нём",
+          "salary_min": "100000.00",
+          "salary_max": "150000.00",
+          "created_date": "2025-11-26T19:00:09.195Z",
+          "status": 22,
+          "views": 6,
+          "experience": "1-3 года",
+          "city": "Москва",
+          "category": "IT",
+          "work_conditions_details": "Python программист"
+        }
+      },
+      {
+        "model": "home.vacancy",
+        "pk": 5,
+        "fields": {
+          "company": 1,
+          "work_conditions": 18,
+          "position": "asdasasd",
+          "description": "asdasdasdasd",
+          "requirements": "asdasdasdasd",
+          "salary_min": "123.00",
+          "salary_max": "1231.00",
+          "created_date": "2025-11-27T09:21:09.927Z",
+          "status": 22,
+          "views": 0,
+          "experience": "Без опыта",
+          "city": "asdasdasd",
+          "category": "HR",
+          "work_conditions_details": "asdasdasdsad"
+        }
+      },
+      {
+        "model": "home.vacancy",
+        "pk": 3,
+        "fields": {
+          "company": 1,
+          "work_conditions": 18,
+          "position": "Программист",
+          "description": "фывфывячсяч",
+          "requirements": "фывфывячсчяс",
+          "salary_min": "3.00",
+          "salary_max": "2.00",
+          "created_date": "2025-11-26T18:54:36.135Z",
+          "status": 22,
+          "views": 0,
+          "experience": "1-3 года",
+          "city": "Москва",
+          "category": "IT",
+          "work_conditions_details": "фывфывячсчяс"
+        }
+      },
+      {
+        "model": "home.vacancy",
+        "pk": 2,
+        "fields": {
+          "company": 1,
+          "work_conditions": 18,
+          "position": "Уборщица",
+          "description": "Уборка жилых помещений",
+          "requirements": "Женщина до 40 лет",
+          "salary_min": "123.00",
+          "salary_max": "1244.00",
+          "created_date": "2025-11-25T11:26:11.169Z",
+          "status": 22,
+          "views": 14,
+          "experience": "Без опыта",
+          "city": "Москва",
+          "category": "Маркетинг",
+          "work_conditions_details": "Наличие оборудывания"
+        }
+      },
+      {
+        "model": "home.vacancy",
+        "pk": 1,
+        "fields": {
+          "company": 1,
+          "work_conditions": 18,
+          "position": "asdфывфывыфв",
+          "description": "asd",
+          "requirements": "asdsad",
+          "salary_min": "123.00",
+          "salary_max": "123.00",
+          "created_date": "2025-11-25T11:11:42.947Z",
+          "status": 22,
+          "views": 8,
+          "experience": "",
+          "city": "asd",
+          "category": "",
+          "work_conditions_details": "asd"
+        }
+      }
+    ],
+    "home.Complaint": [
+      {
+        "model": "home.complaint",
+        "pk": 1,
+        "fields": {
+          "vacancy": 2,
+          "complainant": 2,
+          "complaint_type": "discrimination",
+          "description": "Женщина до 40 лет написано в вакансии",
+          "status": "rejected",
+          "created_at": "2025-11-25T11:34:37.823Z",
+          "resolved_at": "2025-11-26T19:55:05.425Z",
+          "admin_notes": "Жалоба не объективна"
+        }
+      }
+    ],
+    "home.Response": [
+      {
+        "model": "home.response",
+        "pk": 1,
+        "fields": {
+          "applicants": 1,
+          "vacancy": 1,
+          "response_date": "2025-11-25T11:16:36.537Z",
+          "status": 23
+        }
+      },
+      {
+        "model": "home.response",
+        "pk": 3,
+        "fields": {
+          "applicants": 1,
+          "vacancy": 4,
+          "response_date": "2025-11-27T09:18:38.217Z",
+          "status": 24
+        }
+      },
+      {
+        "model": "home.response",
+        "pk": 2,
+        "fields": {
+          "applicants": 1,
+          "vacancy": 2,
+          "response_date": "2025-11-25T11:31:48.956Z",
+          "status": 25
+        }
+      },
+      {
+        "model": "home.response",
+        "pk": 4,
+        "fields": {
+          "applicants": 1,
+          "vacancy": 5,
+          "response_date": "2025-11-27T09:21:54.846Z",
+          "status": 26
+        }
+      },
+      {
+        "model": "home.response",
+        "pk": 5,
+        "fields": {
+          "applicants": 1,
+          "vacancy": 3,
+          "response_date": "2025-11-27T09:21:56.708Z",
+          "status": 26
+        }
+      }
+    ],
+    "home.Favorites": [
+      {
+        "model": "home.favorites",
+        "pk": 3,
+        "fields": {
+          "applicant": 1,
+          "vacancy": 4,
+          "added_date": "2025-11-27T09:18:40.454Z"
+        }
+      }
+    ],
+    "home.AdminLog": [
+      {
+        "model": "home.adminlog",
+        "pk": 23,
+        "fields": {
+          "admin": 1,
+          "action": "backup_created",
+          "target_company": null,
+          "details": "Создан бэкап: backup_database_20251128_175408.json",
+          "created_at": "2025-11-28T14:54:08.408Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 22,
+        "fields": {
+          "admin": 1,
+          "action": "backup_downloaded",
+          "target_company": null,
+          "details": "Скачан бэкап: backup_full_20251128_170214_full.zip",
+          "created_at": "2025-11-28T14:09:17.449Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 21,
+        "fields": {
+          "admin": 1,
+          "action": "backup_created",
+          "target_company": null,
+          "details": "Создан бэкап (composite): backup_full_20251128_170214_full.zip",
+          "created_at": "2025-11-28T14:02:14.996Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 20,
+        "fields": {
+          "admin": 1,
+          "action": "backup_downloaded",
+          "target_company": null,
+          "details": "Скачан бэкап: backup_database_20251128_165856.zip",
+          "created_at": "2025-11-28T14:02:06.479Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 19,
+        "fields": {
+          "admin": 1,
+          "action": "backup_created",
+          "target_company": null,
+          "details": "Создан бэкап (postgres_procedure): backup_database_20251128_165856.zip",
+          "created_at": "2025-11-28T13:58:56.814Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 18,
+        "fields": {
+          "admin": 1,
+          "action": "backup_created",
+          "target_company": null,
+          "details": "Создан бэкап (binary): backup_binary_20251128_163716.zip (9.19 KB)",
+          "created_at": "2025-11-28T13:37:16.346Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 17,
+        "fields": {
+          "admin": 1,
+          "action": "backup_created",
+          "target_company": null,
+          "details": "Создан бэкап (binary): backup_binary_20251128_163711.zip (9.15 KB)",
+          "created_at": "2025-11-28T13:37:11.195Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 16,
+        "fields": {
+          "admin": 1,
+          "action": "backup_deleted",
+          "target_company": null,
+          "details": "Удален бэкап: backup_binary_20251128_163031.zip",
+          "created_at": "2025-11-28T13:37:07.836Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 15,
+        "fields": {
+          "admin": 1,
+          "action": "backup_created",
+          "target_company": null,
+          "details": "Создан бэкап (binary): backup_binary_20251128_163659.zip (9.11 KB)",
+          "created_at": "2025-11-28T13:36:59.687Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 14,
+        "fields": {
+          "admin": 1,
+          "action": "backup_created",
+          "target_company": null,
+          "details": "Создан бэкап (binary): backup_binary_20251128_163035.zip (9.08 KB)",
+          "created_at": "2025-11-28T13:30:35.196Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 13,
+        "fields": {
+          "admin": 1,
+          "action": "backup_created",
+          "target_company": null,
+          "details": "Создан бэкап (binary): backup_binary_20251128_163031.zip (9.01 KB)",
+          "created_at": "2025-11-28T13:30:31.508Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 12,
+        "fields": {
+          "admin": 1,
+          "action": "backup_deleted",
+          "target_company": null,
+          "details": "Удален бэкап: backup_binary_20251128_163021.zip",
+          "created_at": "2025-11-28T13:30:29.390Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 11,
+        "fields": {
+          "admin": 1,
+          "action": "backup_created",
+          "target_company": null,
+          "details": "Создан бэкап (binary): backup_binary_20251128_163021.zip (8.93 KB)",
+          "created_at": "2025-11-28T13:30:21.721Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 10,
+        "fields": {
+          "admin": 1,
+          "action": "logs_cleared",
+          "target_company": null,
+          "details": "Очищено 0 логов старше 30 дней",
+          "created_at": "2025-11-26T20:24:16.181Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 9,
+        "fields": {
+          "admin": 1,
+          "action": "backup_uploaded",
+          "target_company": null,
+          "details": "Загружен бэкап: backup_binary_20251031_221120 (1).zip",
+          "created_at": "2025-11-26T20:05:03.051Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 8,
+        "fields": {
+          "admin": 1,
+          "action": "complaint_updated",
+          "target_company": null,
+          "details": "Изменен статус жалобы #1 с \"Рассмотрено\" на \"Отклонено\"",
+          "created_at": "2025-11-26T19:55:05.426Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 7,
+        "fields": {
+          "admin": 1,
+          "action": "complaint_updated",
+          "target_company": null,
+          "details": "Изменен статус жалобы #1 с \"На рассмотрении\" на \"Рассмотрено\"",
+          "created_at": "2025-11-26T19:54:40.078Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 6,
+        "fields": {
+          "admin": 1,
+          "action": "complaint_updated",
+          "target_company": null,
+          "details": "Изменен статус жалобы #1 с \"Рассмотрено\" на \"На рассмотрении\"",
+          "created_at": "2025-11-26T19:49:02.378Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 5,
+        "fields": {
+          "admin": 1,
+          "action": "company_approved",
+          "target_company": 1,
+          "details": "Компания Чистюля одобрена (email отправлен)",
+          "created_at": "2025-11-26T19:46:58.617Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 4,
+        "fields": {
+          "admin": 1,
+          "action": "backup_uploaded",
+          "target_company": null,
+          "details": "Загружен бэкап: backup_binary_20251031_221120 (1).zip",
+          "created_at": "2025-11-26T13:09:59.981Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 3,
+        "fields": {
+          "admin": 1,
+          "action": "company_approved",
+          "target_company": 1,
+          "details": "Компания Чистюля одобрена (email отправлен)",
+          "created_at": "2025-11-26T12:42:38.957Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 2,
+        "fields": {
+          "admin": 1,
+          "action": "admin_created",
+          "target_company": null,
+          "details": "Создан администратор сайта: Ксения Школьникова (isip_k.v.shkolnikova@mpt.ru)",
+          "created_at": "2025-11-25T11:41:44.212Z"
+        }
+      },
+      {
+        "model": "home.adminlog",
+        "pk": 1,
+        "fields": {
+          "admin": 1,
+          "action": "complaint_updated",
+          "target_company": null,
+          "details": "Изменен статус жалобы #1 с \"На рассмотрении\" на \"Рассмотрено\"",
+          "created_at": "2025-11-25T11:38:30.598Z"
+        }
+      }
+    ],
+    "home.Backup": [
+      {
+        "model": "home.backup",
+        "pk": 11,
+        "fields": {
+          "name": "backup_database_20251128_175408.json",
+          "backup_file": "backups/2025/11/28/backup_database_20251128_175408.json",
+          "backup_type": "database",
+          "file_size": 38943,
+          "created_at": "2025-11-28T14:54:08.395Z",
+          "created_by": 1
+        }
+      },
+      {
+        "model": "home.backup",
+        "pk": 10,
+        "fields": {
+          "name": "backup_full_20251128_170214_full.zip",
+          "backup_file": "backups/2025/11/28/backup_full_20251128_170214_full.zip",
+          "backup_type": "full",
+          "file_size": 794646,
+          "created_at": "2025-11-28T14:02:14.993Z",
+          "created_by": 1
+        }
+      },
+      {
+        "model": "home.backup",
+        "pk": 9,
+        "fields": {
+          "name": "backup_database_20251128_165856.zip",
+          "backup_file": "backups/2025/11/28/backup_database_20251128_165856.zip",
+          "backup_type": "database",
+          "file_size": 9447,
+          "created_at": "2025-11-28T13:58:56.803Z",
+          "created_by": 1
+        }
+      },
+      {
+        "model": "home.backup",
+        "pk": 8,
+        "fields": {
+          "name": "backup_binary_20251128_163716.zip",
+          "backup_file": "backups/2025/11/28/backup_binary_20251128_163716.zip",
+          "backup_type": "database",
+          "file_size": 9410,
+          "created_at": "2025-11-28T13:37:16.343Z",
+          "created_by": 1
+        }
+      },
+      {
+        "model": "home.backup",
+        "pk": 7,
+        "fields": {
+          "name": "backup_binary_20251128_163711.zip",
+          "backup_file": "backups/2025/11/28/backup_binary_20251128_163711.zip",
+          "backup_type": "database",
+          "file_size": 9370,
+          "created_at": "2025-11-28T13:37:11.192Z",
+          "created_by": 1
+        }
+      },
+      {
+        "model": "home.backup",
+        "pk": 6,
+        "fields": {
+          "name": "backup_binary_20251128_163659.zip",
+          "backup_file": "backups/2025/11/28/backup_binary_20251128_163659.zip",
+          "backup_type": "database",
+          "file_size": 9333,
+          "created_at": "2025-11-28T13:36:59.683Z",
+          "created_by": 1
+        }
+      },
+      {
+        "model": "home.backup",
+        "pk": 5,
+        "fields": {
+          "name": "backup_binary_20251128_163035.zip",
+          "backup_file": "backups/2025/11/28/backup_binary_20251128_163035.zip",
+          "backup_type": "database",
+          "file_size": 9294,
+          "created_at": "2025-11-28T13:30:35.193Z",
+          "created_by": 1
+        }
+      },
+      {
+        "model": "home.backup",
+        "pk": 2,
+        "fields": {
+          "name": "backup_binary_20251031_221120 (1).zip",
+          "backup_file": "backups/2025/11/26/backup_binary_20251031_221120_1_NvF1Xjy.zip",
+          "backup_type": "full",
+          "file_size": 7688,
+          "created_at": "2025-11-26T20:05:03.048Z",
+          "created_by": 1
+        }
+      },
+      {
+        "model": "home.backup",
+        "pk": 1,
+        "fields": {
+          "name": "backup_binary_20251031_221120 (1).zip",
+          "backup_file": "backups/2025/11/26/backup_binary_20251031_221120_1.zip",
+          "backup_type": "full",
+          "file_size": 7688,
+          "created_at": "2025-11-26T13:09:59.977Z",
+          "created_by": 1
+        }
+      }
+    ]
+  }
+}

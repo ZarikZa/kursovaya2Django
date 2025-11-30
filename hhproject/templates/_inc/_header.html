@@ -1,0 +1,79 @@
+{% load static %}
+<div class="user-type-header">
+    <div class="user-type-container">
+        <a href="{% url 'home_page' %}" class="user-type-link {% if request.path == '/login/aplicant/' %}active{% endif %}">
+            Соискатель
+        </a>
+        <a href="{% url 'home_comp' %}" class="user-type-link {% if request.path == '/login/employee/' %}active{% endif %}">
+            Компания
+        </a>
+        {% if user.is_authenticated and user.is_staff %}
+        <a href="{% url 'admin_dashboard' %}" class="user-type-link {% if 'admin_panel' in request.path %}active{% endif %}">
+            Администратор
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<header class="header">
+    <div class="header-container">
+        <a href="{% url 'home_page' %}" class="header-logo">
+            <span>HR-Lab</span>
+        </a>
+        <nav class="header-nav">
+            <ul class="header-menu" id="header-menu">
+                <li><a href="{% url 'home_page' %}" class="header-link">Главная</a></li>
+                <li><a href="{% url 'vakansi_page' %}" class="header-link">Вакансии</a></li>
+                
+                {% if user.is_authenticated %}
+                    {% if user.user_type == "applicant" and not user.is_superuser %}
+                        <li><a href="{% url 'applicant_profile' %}" class="header-link">Профиль</a></li>
+                    {% elif user.user_type == "company" %}
+                        <li><a href="{% url 'company_profile' %}" class="header-link">Профиль компании</a></li>
+                    {% elif user.user_type == "analitic" %}
+                        <li><a href="{% url 'analytics_dashboard' %}" class="header-button header-button--analytics">Аналитика</a></li>
+                    {% endif %}
+                    
+                    {% if user.is_staff or user.user_type == 'adminsite' %}
+                        <li><a href="{% url 'admin_dashboard' %}" class="header-link">Админ панель</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="/admin/" class="header-link">Django panel</a></li>
+                        {% endif %}
+                    {% endif %}
+                    
+                    <li><a href="{% url 'logout' %}" class="header-button header-button--logout">Выйти</a></li>
+                    
+                {% else %}
+                    <li><a href="{% url 'login_user' %}" class="header-button header-button--login">Войти</a></li>
+                    <li><a href="{% url 'registration_user' %}" class="header-button header-button--register">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <button class="header-toggle" id="header-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const headerToggle = document.getElementById('header-toggle');
+    const headerMenu = document.getElementById('header-menu');
+    
+    if (headerToggle && headerMenu) {
+        headerToggle.addEventListener('click', function() {
+            headerMenu.classList.toggle('active');
+            headerToggle.classList.toggle('active');
+        });
+    }
+
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.header-nav') && !event.target.closest('.header-toggle')) {
+            headerMenu.classList.remove('active');
+            headerToggle.classList.remove('active');
+        }
+    });
+});
+</script>

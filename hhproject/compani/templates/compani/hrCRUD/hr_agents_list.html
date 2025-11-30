@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}HR-агенты компании - CareerHub{% endblock %}
+
+{% block header %}
+    {% include '_inc/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="vacancies-section" style="padding: 120px 0 60px; background: var(--bg-primary); min-height: 100vh;">
+    <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+        <div class="profile-card" style="background: var(--bg-card); border-radius: 20px; padding: 40px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-color);">
+            <!-- Заголовок -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; flex-wrap: wrap; gap: 20px;">
+    <div>
+        <h1 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin: 0 0 10px 0;">HR-агенты компании {{ company.name }}</h1>
+        <p style="color: var(--text-secondary); margin: 0;">Управление сотрудниками вашей компании</p>
+    </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <!-- Кнопка экспорта -->
+        <a href="{% url 'export_hr_agents_csv' %}" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: linear-gradient(135deg, #6b7280, #4b5563); color: white; text-decoration: none; border-radius: 10px; font-weight: 600; transition: all 0.3s ease;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Экспорт CSV
+        </a>
+        
+        <!-- Кнопка импорта -->
+        <a href="{% url 'import_hr_agents' %}" class="btn btn-info" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; text-decoration: none; border-radius: 10px; font-weight: 600; transition: all 0.3s ease;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Импорт CSV
+        </a>
+        
+        <!-- Кнопка добавления -->
+        <a href="{% url 'hr_agent_create' %}" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-decoration: none; border-radius: 10px; font-weight: 600; transition: all 0.3s ease;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14m-7-7h14"></path>
+            </svg>
+            Добавить HR-агента
+        </a>
+    </div>
+</div>
+
+            {% if messages %}
+            <div style="margin-bottom: 30px;">
+                {% for message in messages %}
+                <div style="padding: 12px 16px; border-radius: 10px; margin-bottom: 10px; font-weight: 500; 
+                           {% if message.tags == 'error' %}background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);{% else %}background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2);{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Секция поиска -->
+            <div style="background: var(--bg-primary); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border-color);">
+                <div style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 15px;">Поиск HR-агентов</div>
+                <form method="get" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <input type="text" 
+                           name="search" 
+                           style="flex: 1; min-width: 300px; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 25px; background: var(--bg-primary); color: var(--text-primary); font-size: 1rem; transition: all 0.3s ease;" 
+                           placeholder="Поиск по имени, фамилии, email или телефону..." 
+                           value="{{ request.GET.search }}">
+                    <button type="submit" style="padding: 12px 24px; border: 2px solid var(--primary); border-radius: 25px; background: var(--primary); color: var(--light); font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                        Найти
+                    </button>
+                    {% if request.GET.search %}
+                    <a href="?{% if request.GET.status %}status={{ request.GET.status }}{% endif %}" style="padding: 12px 20px; border: 2px solid var(--text-secondary); border-radius: 25px; background: transparent; color: var(--text-secondary); font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none;">
+                        Очистить поиск
+                    </a>
+                    {% endif %}
+                </form>
+            </div>
+
+            {% if hr_agents %}
+            <!-- Таблица -->
+            <div style="width: 100%; overflow-x: auto; border-radius: 12px;">
+                <table style="width: 100%; border-collapse: collapse; background: var(--bg-card); min-width: 800px;">
+                    <thead>
+                        <tr>
+                            <th style="background: var(--primary); color: white; padding: 16px 20px; text-align: left; font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Имя</th>
+                            <th style="background: var(--primary); color: white; padding: 16px 20px; text-align: left; font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Фамилия</th>
+                            <th style="background: var(--primary); color: white; padding: 16px 20px; text-align: left; font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Email</th>
+                            <th style="background: var(--primary); color: white; padding: 16px 20px; text-align: left; font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Телефон</th>
+                            <th style="background: var(--primary); color: white; padding: 16px 20px; text-align: left; font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Статус</th>
+                            <th style="background: var(--primary); color: white; padding: 16px 20px; text-align: left; font-weight: 600; font-size: 0.9rem; text-transform: uppercase;">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for agent in hr_agents %}
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 16px 20px; color: var(--text-primary);">{{ agent.first_name }}</td>
+                            <td style="padding: 16px 20px; color: var(--text-primary);">{{ agent.last_name }}</td>
+                            <td style="padding: 16px 20px; color: var(--text-primary);">{{ agent.user.email }}</td>
+                            <td style="padding: 16px 20px; color: var(--text-primary);">{{ agent.user.phone }}</td>
+                            <td style="padding: 16px 20px;">
+                                <span style="padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; {% if agent.user.is_active %}background: linear-gradient(135deg, #10b981, #34d399); color: white;{% else %}background: linear-gradient(135deg, #6b7280, #9ca3af); color: white;{% endif %}">
+                                    {% if agent.user.is_active %}Активен{% else %}Неактивен{% endif %}
+                                </span>
+                            </td>
+                            <td style="padding: 16px 20px;">
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <a href="{% url 'hr_agent_edit' agent.id %}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: linear-gradient(135deg, #10b981, #059669); color: white; text-decoration: none; border-radius: 8px; font-size: 0.8rem; transition: all 0.3s ease;">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                        Редактировать
+                                    </a>
+                                    <form method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="employee_id" value="{{ agent.id }}">
+                                        <input type="hidden" name="delete" value="true">
+                                        <button type="submit" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; border-radius: 8px; font-size: 0.8rem; cursor: pointer; transition: all 0.3s ease;" 
+                                                onclick="return confirm('Вы уверены, что хотите удалить этого HR-агента?');">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M3 6h18"></path>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                                                <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            </svg>
+                                            Удалить
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <!-- Состояние пустого списка -->
+            <div style="text-align: center; padding: 60px 20px; color: var(--text-secondary);">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom: 20px; opacity: 0.5;">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <h3 style="color: var(--text-primary); margin-bottom: 10px;">
+                    {% if request.GET.search or current_status != 'all' %}
+                        HR-агенты не найдены
+                    {% else %}
+                        HR-агенты отсутствуют
+                    {% endif %}
+                </h3>
+                <p style="margin-bottom: 30px; max-width: 400px; margin-left: auto; margin-right: auto;">
+                    {% if request.GET.search or current_status != 'all' %}
+                        Попробуйте изменить параметры поиска или фильтрации
+                    {% else %}
+                        Добавьте первого HR-агента для управления вакансиями компании
+                    {% endif %}
+                </p>
+                {% if request.GET.search or current_status != 'all' %}
+                <a href="?" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border: 2px solid var(--primary); border-radius: 25px; background: transparent; color: var(--primary); text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                    Показать всех HR-агентов
+                </a>
+                {% else %}
+                <a href="{% url 'hr_agent_create' %}" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; text-decoration: none; border-radius: 10px; font-weight: 600;">
+                    Добавить первого HR-агента
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function removeSearch() {
+    const url = new URL(window.location);
+    url.searchParams.delete('search');
+    window.location.href = url.toString();
+}
+
+function removeStatusFilter() {
+    const url = new URL(window.location);
+    url.searchParams.delete('status');
+    window.location.href = url.toString();
+}
+</script>
+{% endblock %}
